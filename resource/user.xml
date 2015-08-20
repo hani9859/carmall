@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+	<typeAlias alias="UserVo" type="com.carmall2015.carmall.vo.UserVo"/>
+	<insert id="insert" parameterClass="UserVo">
+	<![CDATA[
+		insert INTO CAR_USER VALUES(
+		car_user_seq.nextval, #id#, #password#, #name#, #birth#, #birth_sm#, #phoneNumber1#, #phoneNumber2#, #email#, #address#, #userStatus#, #userGrade#, sysdate, null)
+	]]>
+	</insert>
+	<select id="getLogin" resultClass="UserVo" parameterClass="java.util.Map">
+	<![CDATA[
+		select #user_no#, name, phoneNumber1, phoneNumber2, email, address from CAR_USER c where id= #id# and PASSWORD=#password#
+	]]>
+	
+	</select>
+
+</sqlMap>
+
+
