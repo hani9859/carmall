@@ -10,10 +10,35 @@
 	</insert>
 	<select id="getLogin" resultClass="UserVo" parameterClass="java.util.Map">
 	<![CDATA[
-		select #user_no#, name, phoneNumber1, phoneNumber2, email, address from CAR_USER c where id= #id# and PASSWORD=#password#
+		select user_no, id, name, phoneNumber1, phoneNumber2, email, address, userGrade from CAR_USER where id= #id# and PASSWORD=#password#
 	]]>
 	
 	</select>
+	<update id="update" parameterClass="UserVo">
+	<![CDATA[
+		update CAR_USER set password=#password#, name=#name#, birth=#birth#, birth_sm=#birth_sm#,phonenumber1=#phoneNumber1#, phonenumber2=#phoneNumber2#, email=#email#, address=#address# where USER_NO=#user_no#
+	]]>
+	</update>
+	<select id="getMember" resultClass="UserVo">
+	<![CDATA[
+		SELECT * from car_user order by join_date desc
+	]]>
+	
+	</select>
+	
+	<select id="idsearch" resultClass="UserVo" parameterClass="java.lang.String">
+	<![CDATA[
+		select * from CAR_USER c where id like '%'||#id#||'%'
+	]]>
+	</select>
+	
+	<select id="namesearch" resultClass="UserVo" parameterClass="java.lang.String">
+	<![CDATA[
+		select * from CAR_USER c where name like '%'||#name#||'%'
+	]]>
+	</select>
+	
+
 
 </sqlMap>
 

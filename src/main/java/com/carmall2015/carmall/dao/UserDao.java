@@ -1,7 +1,9 @@
 package com.carmall2015.carmall.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +28,22 @@ public class UserDao {
 		return vo;
 		
 	}
+	public void update(UserVo vo){
+		sqlMapClientTemplate.update("user.update", vo);
+	}
+	
+	public List<UserVo> getMember(){
+		List<UserVo> list =	sqlMapClientTemplate.queryForList("user.getMember");
+		return list;
+	}
+	
+	public List<UserVo> idSearch(String id){
+		List<UserVo> list = sqlMapClientTemplate.queryForList("user.idsearch", id);
+		return list;
+	}
+	public List<UserVo> nameSearch(String name){
+		List<UserVo> list = sqlMapClientTemplate.queryForList("user.namesearch", name);
+		return list;
+	}
+	
 }

@@ -29,7 +29,7 @@
 				<c:otherwise>
 					<td><a href="/user/logout"><img src="/assets/images/top_menu02_1.gif" border="0"></a></td>
 					<td><img src="/assets/images/top_menu_line.gif" width="11"></td>
-					<td><a href="/user/modify"><img src="/assets/images/top_menu03_1.gif" border="0"></a></td>
+					<td><a href="/user/modifyform"><img src="/assets/images/top_menu03_1.gif" border="0"></a></td>
 					<td><img src="/assets/images/top_menu_line.gif" width="11"></td>
 				
 				</c:otherwise>

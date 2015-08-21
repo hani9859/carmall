@@ -50,6 +50,7 @@ public class UserController {
 							 @RequestParam String phone3,
 							 @RequestParam String juso,
 							 @RequestParam String email){
+		
 			String birth = birthday1 + birthday2 + birthday3;
 			String phoneNumber1 = tel1+tel2+tel3;
 			String phoneNumber2 = phone1+phone2+phone3;
@@ -93,5 +94,49 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 		
+	}
+	@RequestMapping("/modifyform")
+	public String modifyForm(){
+		return "/user/member_modifyform";
+	}
+	@RequestMapping("/modify")
+	public String modify(HttpSession session, @RequestParam String passwd,
+											  @RequestParam String passwd1,
+											  @RequestParam String name,  
+											  @RequestParam String birthday1,
+											  @RequestParam String birthday2,
+											  @RequestParam String birthday3,
+											  @RequestParam String sm,
+											  @RequestParam String tel1,
+											  @RequestParam String tel2,
+											  @RequestParam String tel3,
+											  @RequestParam String phone1,
+											  @RequestParam String phone2,
+											  @RequestParam String phone3,
+											  @RequestParam String juso,
+											  @RequestParam String email
+			){
+		
+		UserVo vo1 = (UserVo)session.getAttribute("authUser");
+		long user_no= vo1.getUser_no();
+		String birth = birthday1 + birthday2 + birthday3;
+		String phoneNumber1 = tel1 + tel2 + tel3;
+		String phoneNumber2 = phone1 + phone2 + phone3;
+		UserVo vo = new UserVo();
+		if(passwd.equals(passwd1)){
+			vo.setPassword(passwd);
+		}
+		vo.setName(name);
+		vo.setBirth(birth);
+		vo.setBirth_sm(sm);
+		vo.setPhoneNumber1(phoneNumber1);
+		vo.setPhoneNumber2(phoneNumber2);
+		vo.setAddress(juso);
+		vo.setEmail(email);
+		vo.setUser_no(user_no);
+		
+		userService.modify(vo);
+		
+		return "redirect:/";
 	}
 }

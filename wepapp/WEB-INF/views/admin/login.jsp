@@ -11,7 +11,7 @@
 
 <center>
 
-<form name="form1" action="" method="post">
+<form name="form1" action="/admin/login" method="post">
 
 <table  bordercolor="purple" border width='330' cellpadding='4' cellspacing='0'>
 	<tr>
