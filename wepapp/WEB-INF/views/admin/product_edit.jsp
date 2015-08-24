@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <html>
 <head>
 	<title>쇼핑몰 관리자 홈페이지</title>
@@ -13,90 +17,160 @@
 
 <body bgcolor="white" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-<form name="form1" method="post" action="" enctype="multipart/form-data">
+<form name="form1" method="post" action="/admin/product_modify" enctype="multipart/form-data">
 <table width="800" border="1" cellspacing="0" cellpadding="3" bordercolordark="white" bordercolorlight="black">
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품분류</td>
     	<td width="700" bgcolor="#F2F2F2">
 			<select name="menu">
 				<option value="0">상품분류를 선택하세요</option>
-				<option value="1">바지</option>
-				<option value="2" selected>코트</option>
-				<option value="3">브라우스</option>
+				<option value="1">국산</option>
+				<option value="2" selected>수입</option>
+				<option value="3">sale</option>
+			</select>
+			<select name="menu">
+				<option value="0">상품분류를 선택하세요</option>
+				<option value="1">현대</option>
+				<option value="2" selected>기아</option>
+				<option value="3">삼성</option>
+				<option value="4">대우</option>
+				<option value="5">쌍용</option>
 			</select>
 		</td>
 	</tr>
 	<tr height="23"> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품코드</td>
 		<td width="700"  bgcolor="#F2F2F2">
-			<input type="text" name="code" value="Coat001" size="20" maxlength="20">
+			<input type="text" name="code" value="${vo.product_code}" size="20" maxlength="20">
 		</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품명</td>
 		<td width="700"  bgcolor="#F2F2F2">
-			<input type="text" name="name" value="비싼 코트" size="60" maxlength="60">
-		</td>
-	</tr>
-	<tr> 
-		<td width="100" bgcolor="#CCCCCC" align="center">제조사</td>
-		<td width="700"  bgcolor="#F2F2F2">
-			<input type="text" name="coname" value="유명코트회사" size="30" maxlength="30">
+			<input type="text" name="name" value="${vo.name}" size="60" maxlength="60">
 		</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">판매가</td>
 		<td width="700"  bgcolor="#F2F2F2">
-			<input type="text" name="price" value="4,500,000" size="12" maxlength="12"> 원
+			<input type="text" name="price" value="${vo.car_price }" size="12" maxlength="12"> 원
+		</td>
+	</tr>
+	<tr> 
+		<td width="100" bgcolor="#CCCCCC" align="center">색상</td>
+		<td width="700" bgcolor="#F2F2F2">
+			<input type="text" name="car_color" size="12" value="${vo.color}">
+		</td>
+		
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">연식</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="make_year" value="${vo.make_year}" >
+			</td>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">연료</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="oil" value="${vo.oil}" >
+			</td>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">변속기</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="gearBox" value="${vo.gearBox}" >
+			</td>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">주행거리</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="maileage" value="${vo.maileage}" >
+			</td>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">배기량</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="cc" value="${vo.cc }">
+			</td>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">사고유무</td>
+	<c:if test="${vo.accident == 'yes' }">
+		<td width="700" bgcolor="#F2F2F2">
+			<input type="radio" name="accident" value="yes" selected >yes
+			<input type="radio" name="accident" value="no" >no
+			</td>
+			</c:if>
+	<c:if test="${vo.accident=='no'}">
+			<input type="radio" name="accident" value="yes" >yes
+			<input type="radio" name="accident" value="no"  selected>no
+			</td>
+			</c:if>
+	</tr>
+	<tr>
+	<td width="100" bgcolor="#CCCCCC" align="center">차량번호</td>
+	<td width="700" bgcolor="#F2F2F2">
+		<input type="text" name="car_number" value="${vo.car_number}" >
+			</td>
+	</tr>
+	
+	<tr> 
+		<td width="100" bgcolor="#CCCCCC" align="center">제품설명</td>
+		<td width="700" bgcolor="#F2F2F2">
+			<textarea name="content" rows="10" cols="80">${fn:replace(vo.content, newLineChar, "<br>")}</textarea>
 		</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">옵션</td>
-    <td width="700"  bgcolor="#F2F2F2">
-			<select name="opt1">
-				<option value="0">옵션선택</option>
-				<option value="1" selected>사이즈</option>
-				<option value="2">색상_WB</option>
-				<option value="3">색상_WR</option>
-			</select> &nbsp; &nbsp; 
-
-			<select name="opt2">
-				<option value="0">옵션선택</option>
-				<option value="1">사이즈</option>
-				<option value="2" selected>색상_WB</option>
-				<option value="3">색상_WR</option>
-			</select> &nbsp; &nbsp; 
-		</td>
-	</tr>
-	<tr> 
-		<td width="100" bgcolor="#CCCCCC" align="center">제품설명</td>
-		<td width="700"  bgcolor="#F2F2F2">
-			<textarea name="content" rows="4" cols="70">좋은 상품</textarea>
-		</td>
+    <td width="700" bgcolor="#F2F2F2">
+			썬팅<input type="checkbox" name="option1" value="option1">&nbsp; &nbsp;
+			오토도어룩<input type="checkbox" name="option2" value="option2">&nbsp; &nbsp;
+			파워핸들<input type="checkbox" name="option3" value="option3">&nbsp; &nbsp;
+			에어컨<input type="checkbox" name="option4" value="option4">&nbsp; &nbsp;
+			알루미늄힐<input type="checkbox" name="option5" value="option5">&nbsp; &nbsp;
+			파워윈도우<input type="checkbox" name="option6" value="option6">&nbsp; &nbsp;
+			썬루프<input type="checkbox" name="option7" value="option7">&nbsp; &nbsp; <br>
+			에어백(운전석)<input type="checkbox" name="option8" value="option8">&nbsp; &nbsp;
+			에어백(보조석)<input type="checkbox" name="option9" value="option9">&nbsp; &nbsp;
+			에어백(사이드)<input type="checkbox" name="option10" value="option10">&nbsp; &nbsp;
+			후방감지센서<input type="checkbox" name="option11" value="option11">&nbsp; &nbsp;
+			후방카메라<input type="checkbox" name="option12" value="option12">&nbsp; &nbsp;
+			스마트키<input type="checkbox" name="option13" value="option13">&nbsp; &nbsp;
+			CD플레이어<input type="checkbox" name="option14" value="option14">&nbsp; &nbsp;<br>
+			네비게이션<input type="checkbox" name="option15" value="option15">&nbsp; &nbsp;
+			DMB<input type="checkbox" name="option16" value="option16">&nbsp; &nbsp;
+			하이패스<input type="checkbox" name="option17" value="option17">&nbsp; &nbsp;
+			블랙박스<input type="checkbox" name="option18" value="option18">&nbsp; &nbsp;
+			시동버튼<input type="checkbox" name="option19" value="option19">&nbsp; &nbsp;
+			</td>
 	</tr>
 	<tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">상품상태</td>
-    	<td width="700"  bgcolor="#F2F2F2">
-			<input type="radio" name="status" value="1" checked> 판매중
-			<input type="radio" name="status" value="2"> 판매중지
-			<input type="radio" name="status" value="3"> 품절
+    <td width="700" bgcolor="#F2F2F2">
+    	<c:choose>
+    		<c:when test="${vo.carStatus=='판매중'}">
+			<input type="radio" name="status" value="판매중" checked> 판매중
+			<input type="radio" name="status" value="판매중지"> 판매중지
+			<input type="radio" name="status" value="품절"> 품절
+			</c:when>
+			<c:when test="${vo.carStatus=='판매중지'}">
+			<input type="radio" name="status" value="판매중" > 판매중
+			<input type="radio" name="status" value="판매중지" checked> 판매중지
+			<input type="radio" name="status" value="품절"> 품절
+			</c:when>
+			<c:when test="${vo.carStatus=='품절'}">
+			<input type="radio" name="status" value="판매중"> 판매중
+			<input type="radio" name="status" value="판매중지"> 판매중지
+			<input type="radio" name="status" value="품절"checked> 품절
+			</c:when>
+		</c:choose>	
 		</td>
-	</tr>
-	<tr> 
-		<td width="100" bgcolor="#CCCCCC" align="center">아이콘</td>
-		<td width="700"  bgcolor="#F2F2F2">
-			<input type="checkbox" name="icon_new" value="1"> New &nbsp;&nbsp	
-			<input type="checkbox" name="icon_hit" value="1" checked> Hit &nbsp;&nbsp	
-			<input type="checkbox" name="icon_sale" value="1" onclick="form1.discount.disabled=!form1.discount.disabled;"> Sale &nbsp;&nbsp
-			할인율 : <input type="text" name="discount" value="10" size="3" maxlength="3" disabled> %
-		</td>
-	</tr>
-	<tr> 
+	</tr> 
 		<td width="100" bgcolor="#CCCCCC" align="center">등록일</td>
 		<td width="700"  bgcolor="#F2F2F2">
-			<input type="text" name="regday1" value="2007" size="4" maxlength="4"> 년 &nbsp
-			<input type="text" name="regday2" value="2007" size="2" maxlength="2"> 월 &nbsp
-			<input type="text" name="regday3" value="2007" size="2" maxlength="2"> 일 &nbsp
+			<input type="text" name="regday1" value="${addDate1}" size="4" maxlength="4"> 년 &nbsp
+			<input type="text" name="regday2" value="${addDate2}" size="2" maxlength="2"> 월 &nbsp
+			<input type="text" name="regday3" value="${addDate3}" size="2" maxlength="2"> 일 &nbsp
 		</td>
 	</tr>
 	<tr> 

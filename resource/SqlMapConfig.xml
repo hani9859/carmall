@@ -8,5 +8,6 @@
 
  	<!-- sql mapping files -->
  	<sqlMap resource="user.xml"/>
+ 	<sqlMap resource="product.xml"/>
  	
 </sqlMapConfig>

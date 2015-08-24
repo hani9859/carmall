@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="product">
+<typeAlias alias="ProductVo" type="com.carmall2015.carmall.vo.ProductVo"/>
+	<insert id="insert" parameterClass="ProductVo">
+		<![CDATA[
+			insert into CAR_PRODUCT VALUES(car_product_seq.nextval, #country_name#, #brand_name#, #product_code#, #name#, #car_price#, #make_year#, #oil#, #gearBox#, #color#, #maileage#, #cc#, #accident#, #car_number# ,#content#, #carStatus# ,sysdate)
+		]]>
+	</insert>
+	<select id="getList" resultClass="ProductVo">
+		<![CDATA[
+			select * from car_product order by add_date desc
+		]]>
+	</select>
+	<select id="product_search" resultClass="ProductVo" parameterClass="java.util.Map">
+		<![CDATA[
+			select * from CAR_PRODUCT where carStatus=#carStatus# 
+		]]>
+		<dynamic>
+			<isNotEmpty  property="country_name" prepend="and">
+				country_name=#country_name#
+			</isNotEmpty >
+			<isNotEmpty  property="brand_name" prepend="and">
+				 brand_name=#brand_name# 
+			</isNotEmpty >
+			<isNotEmpty  property="name" prepend="and" >
+				 name like '%'||#name#||'%'
+			</isNotEmpty >
+			<isNotEmpty  property="product_code" prepend="and" >
+				 product_code like '%'||#product_code#||'%'
+			 </isNotEmpty >
+		</dynamic>
+		 <![CDATA[
+			order by add_date desc
+		]]> 
+	</select>
+	<select id="getProduct" resultClass="ProductVo" parameterClass="java.lang.Long">
+		<![CDATA[
+			select * from car_product where car_no=#car_no#
+		]]>
+	</select>
+	<update id="modify" parameterClass="java.util.Map">
+		<![CDATA[
+			update CAR_PRODUCT SET country_name=#country_name#,brand_name=#brand_name#,product_code=#product_code#, name=#name#, car_price=#car_price#, make_year=#make_year#,
+								   oil=#oil#, gearbox=#gearbox#, color=#color#, maileage=#mailege#, cc=#cc#, accident =#accident#, car_number=#car_number#, content=#content#,
+								   carStatus=#carStatus#, add_date=#add_date# where car_no=#car_no#
+		]]>
+		
+	</update>
+	
+</sqlMap>
